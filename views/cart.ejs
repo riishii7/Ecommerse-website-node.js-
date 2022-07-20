@@ -1,0 +1,36 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+    <%- include('includes/navigation.ejs') %>
+
+    <main>
+        <% if (prods.length > 0) { %>
+            <ul class="cart__item-list">
+                <% for (let product of prods) { %>
+                    <li class="cart__item">
+                            <h1><%= product.title %> </h1>
+                            <h2>Rs <%= product.price %>  </h2>
+                        <form action="payment" method="POST"> 
+                        <script
+                            src="//checkout.stripe.com/v2/checkout.js"
+                            class="stripe-button"
+                            data-key="pk_test_51KUZzwSJm64OwNNxObkTjguroqELiMPj2hQsjZrdJY41L2YuzkXtEbhEC0fGTX3jSHtA0Z5ffK7ZhOvMdW7ae9Ac00PglE6eFC" 
+                            data-amount="<%= product.price * 100 %> " 
+                            data-currency="inr" 
+                            data-name="Gourav Srivastava" 
+                            data-description="<%= product.title %>" 
+                            data-locale="auto" > 
+                            </script> 
+                        </form> 
+                        </li>
+                        <% } %>
+                        </ul>
+
+         <% } else { %> 
+            <h1>No Products in Cart!</h1>
+        <% } %>
+    </main>
+<%- include('includes/end.ejs') %>
